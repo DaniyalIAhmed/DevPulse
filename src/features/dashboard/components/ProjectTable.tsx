@@ -87,7 +87,7 @@ const ProjectTable = ({ projects, onDeleteProject, onUpdateProject, onDuplicateP
         } catch (error) {
             
         } finally{
-            
+
         }
     }
     const handleDeleteClick = async (project: Project) => { }
@@ -153,10 +153,10 @@ const ProjectTable = ({ projects, onDeleteProject, onUpdateProject, onDuplicateP
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end" className="w-48">
                                             <DropdownMenuItem asChild>
-                                                <MarkedToggleButton
+                                                {/* <MarkedToggleButton
                                                     markedForRevision={project.Starmark[0]?.isMarked}
                                                     id={project.id}
-                                                />
+                                                /> */}
                                             </DropdownMenuItem>
                                             <DropdownMenuItem asChild>
                                                 <Link
