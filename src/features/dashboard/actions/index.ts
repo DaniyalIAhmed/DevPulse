@@ -4,8 +4,8 @@ import { prisma } from "@/lib/db";
 import { Templates } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-export const createPlayground = async (data:{title: string, description: string, template: Templates, userId:string}) => {
-    const {title, description, template, userId} = data;
+export const createPlayground = async (data:{title: string, description?: string, template: Templates}) => {
+    const {title, description, template} = data;
     const user = await currentUser();
     try {
         const playground = await prisma.playground.create({
