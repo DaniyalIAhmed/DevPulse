@@ -9,8 +9,8 @@ import { useState } from 'react';
 interface PlaygroundDataProps {
     id: string;
     name: string;
-    icon: string;
     starred: boolean;
+    icon: string;
 }
 const lucideIconMap: Record<string, LucideIcon> = {
     Zap: Zap,
