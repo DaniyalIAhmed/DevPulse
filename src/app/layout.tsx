@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -32,7 +33,7 @@ export default async function RootLayout({
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-          >
+          ><Toaster />
             {children}
           </ThemeProvider>
         </body>
