@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as path from 'path';
-
 /**
  * Represents a file in the template structure
  */
@@ -150,11 +149,10 @@ async function processDirectory(
 
       // Check if this entry should be skipped
       if (entry.isDirectory()) {
-        // Skip ignored folders
-        if (options.ignoreFolders?.includes(entryName)) {
-          console.log(`Skipping ignored folder: ${entryPath}`);
-          continue;
-        }
+                 // Skip ignored folders
+         if (options.ignoreFolders?.includes(entryName)) {
+           continue;
+         }
         
         // If it's a directory, process it recursively
         const subFolder = await processDirectory(entryName, entryPath, options);
@@ -162,14 +160,12 @@ async function processDirectory(
       } else if (entry.isFile()) {
         // Skip ignored files
         if (options.ignoreFiles?.includes(entryName)) {
-          console.log(`Skipping ignored file: ${entryPath}`);
           continue;
         }
         
         // Check against regex patterns
         const shouldSkip = options.ignorePatterns?.some(pattern => pattern.test(entryName));
         if (shouldSkip) {
-          console.log(`Skipping file matching ignore pattern: ${entryPath}`);
           continue;
         }
         
@@ -236,13 +232,12 @@ export async function saveTemplateStructureToJson(
     const outputDir = path.dirname(outputPath);
     await fs.promises.mkdir(outputDir, { recursive: true });
     
-    // Write the JSON file
-    const data = await fs.promises.writeFile(
-      outputPath, 
-      JSON.stringify(templateStructure, null, 2),
-      'utf8'
-    );
-    console.log(`Template structure saved to ${outputPath}`);
+         // Write the JSON file
+     await fs.promises.writeFile(
+       outputPath, 
+       JSON.stringify(templateStructure, null, 2),
+       'utf8'
+          );
 
 
     

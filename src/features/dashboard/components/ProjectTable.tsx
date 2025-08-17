@@ -162,7 +162,7 @@ const ProjectTable = ({ projects, onDeleteProject, onUpdateProject, onDuplicateP
                                 <TableRow key={project.id}>
                                     <TableCell>
                                         <div className="flex flex-col">
-                                            <Link href={`/dashboard/${project.id}`} className="hover:underline">
+                                            <Link href={`/playground/${project.id}`} className="hover:underline">
                                                 <span className="font-semibold">{project.title}</span>
                                             </Link>
                                             <span className="text-sm text-muted-foreground line-clamp-1">{project.description}</span>
