@@ -1,7 +1,8 @@
 'use client'
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
+import LoadingStep from '@/components/ui/LoadingStep';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -11,7 +12,9 @@ import TemplateFileTree from '@/features/playgrounds/components/TemplateFileTree
 import { useFileExplorer } from '@/features/playgrounds/hooks/useFileExplorer';
 import { usePlayground } from '@/features/playgrounds/hooks/usePlayground';
 import { TemplateFile, TemplateFolder } from '@/features/playgrounds/types';
-import { Bot, FileText, Save, SaveAll, Settings, X } from 'lucide-react';
+import WebContainerPreview from '@/features/webcontainer/components/WebContainerPreview';
+import { useWebContainer } from '@/features/webcontainer/hooks/useWebContainer';
+import { AlertCircle, Bot, FileText, FolderOpen, Save, SaveAll, Settings, X } from 'lucide-react';
 import { useParams } from 'next/navigation'
 import React, { useCallback, useEffect, useState } from 'react'
 
@@ -27,6 +30,7 @@ const Page = () => {
         saveTemplateData,
     } = usePlayground(id);
     const { openFile, closeFile, closeAllFiles, handleAddFile, handleAddFolder, handleDeleteFile, handleDeleteFolder, handleRenameFile, handleRenameFolder, updateFileContent, setTemplateData, setPlaygroundId, setOpenFiles, setActiveFileId, setEditorContent, openFiles, activeFileId, editorContent } = useFileExplorer();
+    const {serverUrl, isLoading: isWebContainerLoading, error: webContainerError, instance: webContainerInstance, writeFileSync, destroy: destroyWebContainer} = useWebContainer({templateData: templateData || {folderName: "", items: []}});
     useEffect(() => {
         setPlaygroundId(id);
     }, [id, setPlaygroundId])
@@ -103,6 +107,61 @@ const Page = () => {
     const HandleFileSelect = (file: TemplateFile) => {
         openFile(file);
     }
+    if (error) {
+        return (
+          <div className="flex flex-col items-center justify-center h-[calc(100vh-4rem)] p-4">
+            <AlertCircle className="h-12 w-12 text-red-500 mb-4" />
+            <h2 className="text-xl font-semibold text-red-600 mb-2">
+              Something went wrong
+            </h2>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()} variant="destructive">
+              Try Again
+            </Button>
+          </div>
+        );
+      }
+    
+      // Loading state
+      if (isLoading) {
+        return (
+          <div className="flex flex-col items-center justify-center h-[calc(100vh-4rem)] p-4">
+            <div className="w-full max-w-md p-6 rounded-lg shadow-sm border">
+              <h2 className="text-xl font-semibold mb-6 text-center">
+                Loading Playground
+              </h2>
+              <div className="mb-8">
+                <LoadingStep
+                  currentStep={1}
+                  step={1}
+                  label="Loading playground data"
+                />
+                <LoadingStep
+                  currentStep={2}
+                  step={2}
+                  label="Setting up environment"
+                />
+                <LoadingStep currentStep={3} step={3} label="Ready to code" />
+              </div>
+            </div>
+          </div>
+        );
+      }
+    
+      // No template data
+      if (!templateData) {
+        return (
+          <div className="flex flex-col items-center justify-center h-[calc(100vh-4rem)] p-4">
+            <FolderOpen className="h-12 w-12 text-amber-500 mb-4" />
+            <h2 className="text-xl font-semibold text-amber-600 mb-2">
+              No template data available
+            </h2>
+            <Button onClick={() => window.location.reload()} variant="outline">
+              Reload Template
+            </Button>
+          </div>
+        );
+      }
     return (
         <TooltipProvider>
             <>
@@ -220,6 +279,22 @@ const Page = () => {
                                             onContentChange={(value)=> activeFileId && updateFileContent(activeFileId, value)}
                                             />
                                         </ResizablePanel>
+                                        {
+                                            isPreviewVisible && (<>
+                                            <ResizableHandle/>
+                                            <ResizablePanel defaultSize={50}>
+                                                <WebContainerPreview
+                                                templateData={templateData!}
+                                                instance={webContainerInstance}
+                                                writeFileSync={writeFileSync}
+                                                isDataLoading={isWebContainerLoading}
+                                                error={webContainerError}
+                                                forceResetup={false}
+                                                serverUrl={serverUrl!}
+                                                />
+                                            </ResizablePanel>
+                                            </>)
+                                        }
                                     </ResizablePanelGroup>
                                 </div>
                             </div>) : (
