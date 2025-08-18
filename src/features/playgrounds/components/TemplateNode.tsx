@@ -21,7 +21,7 @@ interface TemplateNodeProps {
     item: TemplateItem;
     level: number;
     path?: string;
-    onFileSelect?: (file: TemplateFile, parentPath: string) => void;
+    onFileSelect?: (file: TemplateFile) => void;
     onAddFile?: (file: TemplateFile, parentPath: string) => void;
     onAddFolder?: (folder: TemplateFolder, parentPath: string) => void;
     onDeleteFile?: (file: TemplateFile, parentPath: string) => void;
@@ -65,7 +65,7 @@ const TemplateNode = ({ item, level, path, onFileSelect, onAddFile, onAddFolder,
         return (
             <ItemComponent>
                 <div className="flex items-center group">
-                    <SidebarMenuButton className='flex-1'>
+                    <SidebarMenuButton isActive={isSelected} onClick={() => { onFileSelect?.(file) }} className='flex-1'>
                         <File className='w-4 h-4 mr-2 shrink-0' />
                         <span>{fileName}</span>
                     </SidebarMenuButton>

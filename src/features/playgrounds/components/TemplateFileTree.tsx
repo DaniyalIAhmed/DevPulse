@@ -23,7 +23,7 @@ type TemplateItem = TemplateFile | TemplateFolder;
 
 interface TemplateFileTreeProps {
     data: TemplateItem;
-    onFileSelect?: (file: TemplateFile, parentPath: string) => void;
+    onFileSelect?: (file: TemplateFile) => void;
     selectedFile?: TemplateFile;
     title?: string;
     onAddFile?: (file: TemplateFile, parentPath: string) => void;
