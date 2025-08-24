@@ -9,12 +9,15 @@ export default auth((req) => {
     const isLoggedIn = !!req.auth;
 
     const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+    
+    // Allow code suggestion API routes
+    const isCodeSuggestionAPI = nextUrl.pathname.startsWith("/api/code-suggestion");
 
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
 
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-    if(isApiAuthRoute){
+    if(isApiAuthRoute || isCodeSuggestionAPI){
         return null;
     }
     if (isAuthRoute){
