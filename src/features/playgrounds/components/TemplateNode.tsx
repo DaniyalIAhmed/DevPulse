@@ -87,6 +87,19 @@ const TemplateNode = ({ item, level, path, onFileSelect, onAddFile, onAddFolder,
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
+                <RenameFileDialog isOpen={isRenameDialogOpen} onClose={() => setIsRenameDialogOpen(false)} onRenameFile={handleRenameSubmit} />
+                <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Delete File</AlertDialogTitle>
+                            <AlertDialogDescription>Are you sure you want to delete this file? This action cannot be undone.</AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={confirmDelete} className='bg-destructive text-destructive-foreground hover:bg-destructive/90'>Delete</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </ItemComponent>
         )
     } else {

@@ -56,6 +56,18 @@ const TemplateFileTree: React.FC<TemplateFileTreeProps> = ({
     const handleAddRootFolder = () => {
         setIsNewFolderDialogOpen(true);
     }
+    const handleCreateFile=(filename:string, extension:string)=>{
+        if(onAddFile && isRootFolder){
+            onAddFile({filename, fileExtension:extension||"js", content:""}, "");
+        }
+        setIsNewFileDialogOpen(false);
+    }
+    const handleCreateFolder=(folderName:string)=>{
+        if(onAddFolder && isRootFolder){
+            onAddFolder({folderName, items:[]}, "");
+        }
+        setIsNewFolderDialogOpen(false);
+    }
     return (
         <Sidebar>
             <SidebarContent>
@@ -91,8 +103,8 @@ const TemplateFileTree: React.FC<TemplateFileTreeProps> = ({
                 </SidebarGroup>
             </SidebarContent>
             <SidebarRail/>
-            <NewFileDialog isOpen={isNewFileDialogOpen} onClose={() => setIsNewFileDialogOpen(false)} onCreateFile={()=>{}} />
-            <NewFolderDialog isOpen={isNewFolderDialogOpen} onClose={() => setIsNewFolderDialogOpen(false)} onCreateFolder={()=>{}} />
+            <NewFileDialog isOpen={isNewFileDialogOpen} onClose={() => setIsNewFileDialogOpen(false)} onCreateFile={handleCreateFile} />
+            <NewFolderDialog isOpen={isNewFolderDialogOpen} onClose={() => setIsNewFolderDialogOpen(false)} onCreateFolder={handleCreateFolder} />
             {/* <RenameFileDialog isOpen={isRenameFileDialogOpen} onClose={() => setIsRenameFileDialogOpen(false)} onRenameFile={()=>{}} />
             <RenameFolderDialog isOpen={isRenameFolderDialogOpen} onClose={() => setIsRenameFolderDialogOpen(false)} onRenameFolder={()=>{}} /> */}
         </Sidebar>
