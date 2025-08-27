@@ -49,7 +49,7 @@ export const PlaygroundEditor = ({
   const createInlineCompletionProvider = useCallback(
     (monaco: Monaco) => {
       return {
-        provideInlineCompletions: async (model: any, position: any, context: any, token: any) => {
+        provideInlineCompletions: async (model: any, position: any) => {
           console.log("provideInlineCompletions called", {
             hasSuggestion: !!suggestion,
             hasPosition: !!suggestionPosition,
@@ -485,7 +485,7 @@ export const PlaygroundEditor = ({
     updateEditorLanguage()
   }
 
-  const updateEditorLanguage = () => {
+  const updateEditorLanguage = useCallback(() => {
     if (!activeFile || !monacoRef.current || !editorRef.current) return
     const model = editorRef.current.getModel()
     if (!model) return
@@ -496,11 +496,11 @@ export const PlaygroundEditor = ({
     } catch (error) {
       console.warn("Failed to set editor language:", error)
     }
-  }
+  }, [activeFile, editorRef, monacoRef])
 
   useEffect(() => {
     updateEditorLanguage()
-  }, [activeFile])
+  }, [activeFile, updateEditorLanguage])
 
   // Cleanup on unmount
   useEffect(() => {

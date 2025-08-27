@@ -3,9 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { WebContainer } from '@webcontainer/api';
 import WebContainerSingleton from './webcontainer-singleton';
 
-interface UseWebContainerProps {
-    templateData: TemplateFolder;
-}
+
 
 interface UseWebContainerReturn {
     serverUrl: string | null;
@@ -16,7 +14,7 @@ interface UseWebContainerReturn {
     destroy: () => void;
 }
 
-export const useWebContainer = ({ templateData }: UseWebContainerProps): UseWebContainerReturn => {
+export const useWebContainer = (): UseWebContainerReturn => {
     // TODO: Handle templateData changes when needed
     const [serverUrl, setServerUrl] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);

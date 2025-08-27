@@ -1,5 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const express = require('express');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { graphqlHTTP } = require('express-graphql');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { buildSchema } = require('graphql');
 
 // Construct a schema, using GraphQL schema language

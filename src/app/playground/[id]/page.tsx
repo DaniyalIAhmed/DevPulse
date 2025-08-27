@@ -17,7 +17,7 @@ import { findFilePath } from '@/features/playgrounds/lib';
 import { TemplateFile, TemplateFolder } from '@/features/playgrounds/types';
 import WebContainerPreview from '@/features/webcontainer/components/WebContainerPreview';
 import { useWebContainer } from '@/features/webcontainer/hooks/useWebContainer';
-import { AlertCircle, Bot, FileText, FolderOpen, Save, SaveAll, Settings, X } from 'lucide-react';
+import { AlertCircle, FileText, FolderOpen, Save, SaveAll, Settings, X } from 'lucide-react';
 import { useParams } from 'next/navigation'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner';
@@ -30,12 +30,12 @@ const Page = () => {
         templateData,
         isLoading,
         error,
-        loadPlayground,
+
         saveTemplateData,
     } = usePlayground(id);
     const aiSuggestion = useAISuggestion();
-    const { openFile, closeFile, closeAllFiles, handleAddFile, handleAddFolder, handleDeleteFile, handleDeleteFolder, handleRenameFile, handleRenameFolder, updateFileContent, setTemplateData, setPlaygroundId, setOpenFiles, setActiveFileId, setEditorContent, openFiles, activeFileId, editorContent } = useFileExplorer();
-    const { serverUrl, isLoading: isWebContainerLoading, error: webContainerError, instance: webContainerInstance, writeFileSync, destroy: destroyWebContainer } = useWebContainer({ templateData: templateData || { folderName: "", items: [] } });
+    const { openFile, closeFile, closeAllFiles, handleAddFile, handleAddFolder, handleDeleteFile, handleDeleteFolder, handleRenameFile, handleRenameFolder, updateFileContent, setTemplateData, setPlaygroundId, setOpenFiles, setActiveFileId, openFiles, activeFileId } = useFileExplorer();
+    const { serverUrl, isLoading: isWebContainerLoading, error: webContainerError, instance: webContainerInstance, writeFileSync } = useWebContainer();
     const lastSyncedContent = useRef<Map<string, string>>(new Map());
 
 

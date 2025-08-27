@@ -45,7 +45,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         // Check if input path exists
         try {
             await fs.access(inputPath);
-        } catch (error) {
+        } catch {
             // Return fallback data instead of failing
             return Response.json({
                 success: true, 
@@ -106,13 +106,13 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         // Clean up the temporary file
         try {
             await fs.unlink(outputFile);
-        } catch (error) {
+        } catch {
             // Silently ignore cleanup errors
         }
         
         return Response.json({success: true, templateJson: result}, {status: 200});
         
-    } catch (error) {
+    } catch {
         return Response.json({error: "Failed to load template"}, {status: 500});
     }
 }

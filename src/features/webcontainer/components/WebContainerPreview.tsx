@@ -17,9 +17,9 @@ interface WebContainerPreviewProps {
     writeFileSync: (path: string, content: string) => Promise<void>;
 }
 
-const WebContainerPreview = ({ serverUrl, templateData, isDataLoading, error, instance, forceResetup, writeFileSync }: WebContainerPreviewProps) => {
+const WebContainerPreview = ({ templateData, isDataLoading, error, instance, forceResetup }: WebContainerPreviewProps) => {
     const [previewUrl, setPreviewUrl] = useState<string>("");
-    const [isLoading, setIsLoading] = useState({
+    const [loading, setIsLoading] = useState({
         transforming: false,
         mounting: false,
         installing: false,
@@ -98,7 +98,7 @@ const WebContainerPreview = ({ serverUrl, templateData, isDataLoading, error, in
                     );
                     return;
 
-                } catch (error) {
+                } catch {
                     console.log("No existing files, proceeding with full setup...");
                 }
 

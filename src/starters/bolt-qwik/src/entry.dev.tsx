@@ -12,6 +12,7 @@
 import { render, type RenderOptions } from '@builder.io/qwik';
 import Root from './root';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (opts: RenderOptions) {
   return render(document, <Root />, opts);
 }

@@ -17,6 +17,7 @@ import {
 import { manifest } from '@qwik-client-manifest';
 import Root from './root';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (opts: RenderToStreamOptions) {
   return renderToStream(<Root />, {
     manifest,

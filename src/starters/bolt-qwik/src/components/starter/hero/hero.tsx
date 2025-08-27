@@ -29,15 +29,15 @@ export default component$(() => {
             };
 
             function loadConfetti() {
-              return new Promise<(opts: any) => void>((resolve, reject) => {
-                if ((globalThis as any).confetti) {
-                  return resolve((globalThis as any).confetti as any);
+              return new Promise<(opts: unknown) => void>((resolve, reject) => {
+                if ((globalThis as { confetti?: unknown }).confetti) {
+                  return resolve((globalThis as { confetti: (opts: unknown) => void }).confetti);
                 }
                 const script = document.createElement('script');
                 script.src =
                   'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
                 script.onload = () =>
-                  resolve((globalThis as any).confetti as any);
+                  resolve((globalThis as { confetti: (opts: unknown) => void }).confetti);
                 script.onerror = reject;
                 document.head.appendChild(script);
                 script.remove();

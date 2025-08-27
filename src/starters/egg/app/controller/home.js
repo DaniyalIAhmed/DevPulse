@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { Controller } = require('egg');
 
 class HomeController extends Controller {

@@ -7,7 +7,7 @@ import { TemplateFolder } from "../lib/path-to-json";
 
 export const getPlayground = async (id: string) => {
     try {
-        const user = await currentUser();
+        await currentUser();
         const playground = await prisma.playground.findUnique({
             where: {
                 id,
@@ -24,7 +24,7 @@ export const getPlayground = async (id: string) => {
         })
         return playground;
         
-    } catch (error) {
+    } catch {
         
     }
 }

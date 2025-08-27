@@ -10,28 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { 
   Bot, 
-  Code, 
   FileText, 
-  Import, 
   Loader2,
   Power,
-  PowerOff,
-  Braces,
-  Variable
+  PowerOff
 } from "lucide-react";
 import React from "react";
 import { cn } from "@/lib/utils";

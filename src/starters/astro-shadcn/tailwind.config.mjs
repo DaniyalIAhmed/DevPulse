@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+const config = {
+// eslint-disable-next-line import/no-anonymous-default-export
   darkMode: ['class'],
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
@@ -75,5 +76,7 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [(await import('tailwindcss-animate')).default],
 };
+
+export default config;

@@ -325,7 +325,7 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({
   >("chat");
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<string>("all");
-  const [showSettings, setShowSettings] = useState(false);
+
   const [autoSave, setAutoSave] = useState(true);
   const [streamResponse, setStreamResponse] = useState(true);
 
@@ -668,7 +668,7 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({
     return suggestions;
   };
 
-  const getChatModePrompt = (mode: string, content: string, context: any) => {
+  const getChatModePrompt = (mode: string, content: string) => {
     const baseContext = {
       activeFile: activeFileName,
       language: activeFileLanguage,
@@ -726,12 +726,7 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({
 
     try {
       // Prepare enhanced context
-      let contextualMessage = getChatModePrompt(chatMode, input.trim(), {
-        activeFile: activeFileName,
-        activeFileContent: activeFileContent?.substring(0, 2000), // Increased context size
-        language: activeFileLanguage,
-        cursorPosition,
-      });
+      let contextualMessage = getChatModePrompt(chatMode, input.trim());
 
       if (attachments.length > 0) {
         contextualMessage += "\n\nAttached files:\n";
@@ -1114,7 +1109,7 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({
                 </div>
               )}
 
-              {filteredMessages.map((msg, index) => (
+              {filteredMessages.map((msg) => (
                 <div key={msg.id} className="space-y-4">
                   <div
                     className={cn(
@@ -1152,11 +1147,10 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({
                             code: ({
                               children,
                               className,
-                              inline: _inline,
+                              ...props
                             }) => (
                               <EnhancedCodeBlock
                                 className={className}
-                                inline={_inline as boolean}
                                 onInsert={
                                   onInsertCode
                                     ? (code) => handleInsertCode(code)

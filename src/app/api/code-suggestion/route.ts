@@ -239,10 +239,3 @@ function detectIncompletePatterns(line: string, column: number): string[] {
   return patterns
 }
 
-function getLastNonEmptyLine(lines: string[], currentLine: number): string {
-  for (let i = currentLine - 1; i >= 0; i--) {
-    const line = lines[i]
-    if (line.trim() !== "") return line
-  }
-  return ""
-}

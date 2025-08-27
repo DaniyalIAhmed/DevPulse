@@ -106,7 +106,7 @@ export const useAISuggestion = (): UseAISuggestionsReturn => {
 
       return newState;
     });
-  }, []); // Remove state.isEnabled from dependencies to prevent stale closures
+  }, [state.isEnabled]); // Include state.isEnabled dependency
 
   const acceptSuggestion = useCallback(
     (editor: any, monaco: any) => {

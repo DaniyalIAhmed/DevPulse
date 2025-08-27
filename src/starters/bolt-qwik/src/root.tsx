@@ -19,6 +19,7 @@ export default component$(() => {
 
   return (
     <QwikCityProvider>
+      {/* eslint-disable-next-line @next/next/no-head-element */}
       <head>
         <meta charset="utf-8" />
         {!isDev && (

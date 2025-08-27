@@ -250,7 +250,7 @@ interface RenameFolderDialogProps {
     currentFolderName: string;
 }
 
-export const RenameFolderDialog: React.FC<RenameFolderDialogProps> = ({ isOpen, onClose, onRename, currentFolderName }) => {
+export const RenameFolderDialog: React.FC<RenameFolderDialogProps> = ({ isOpen, onClose, onRename }) => {
     const [filename, setFilename] = useState('');
 
     const handleCreateFile = (e: React.FormEvent) => {

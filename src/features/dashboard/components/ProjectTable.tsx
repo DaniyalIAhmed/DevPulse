@@ -77,7 +77,7 @@ const ProjectTable = ({ projects, onDeleteProject, onUpdateProject, onDuplicateP
         description: "",
     });
     const [isLoading, setIsLoading] = useState(false);
-    const [favoutrie, setFavourite] = useState(false);
+
 
 
     const handleDuplicateProject = async (project: Project) => {
@@ -132,7 +132,7 @@ const ProjectTable = ({ projects, onDeleteProject, onUpdateProject, onDuplicateP
     const handleEditClick = async (project: Project) => {
         setSelectedProject(project);
         setEditData({
-            title: project.title,
+            title: project.title || "",
             description: project.description || "",
         })
         setEditDialogOpen(true);
@@ -163,9 +163,9 @@ const ProjectTable = ({ projects, onDeleteProject, onUpdateProject, onDuplicateP
                                     <TableCell>
                                         <div className="flex flex-col">
                                             <Link href={`/playground/${project.id}`} className="hover:underline">
-                                                <span className="font-semibold">{project.title}</span>
+                                                <span className="font-semibold">{project.title || 'Untitled'}</span>
                                             </Link>
-                                            <span className="text-sm text-muted-foreground line-clamp-1">{project.description}</span>
+                                            <span className="text-sm text-muted-foreground line-clamp-1">{project.description || 'No description'}</span>
                                         </div>
                                     </TableCell>
                                     <TableCell>
@@ -184,13 +184,13 @@ const ProjectTable = ({ projects, onDeleteProject, onUpdateProject, onDuplicateP
                                             <div className="w-8 h-8 rounded-full overflow-hidden">
                                                 <Image
                                                     src={project.user.image || "/placeholder.svg"}
-                                                    alt={project.user.name}
+                                                    alt={project.user.name || "User"}
                                                     width={32}
                                                     height={32}
                                                     className="object-cover"
                                                 />
                                             </div>
-                                            <span className="text-sm">{project.user.name}</span>
+                                            <span className="text-sm">{project.user.name || 'Unknown User'}</span>
                                         </div>
                                     </TableCell>
                                     <TableCell>
