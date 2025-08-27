@@ -1,0 +1,14 @@
+# Robots.txt for DevPulse
+User-agent: *
+Allow: /
+
+# Allow all search engines to index the site
+Allow: /auth/sign-in
+Allow: /dashboard
+Allow: /playground/*
+
+# Sitemap location
+Sitemap: https://your-domain.vercel.app/sitemap.xml
+
+# Crawl delay (optional - 1 second)
+Crawl-delay: 1
