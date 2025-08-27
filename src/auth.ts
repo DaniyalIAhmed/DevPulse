@@ -1,6 +1,8 @@
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { UserRole } from "@prisma/client"
+
+// Define UserRole locally to match Prisma schema
+type UserRole = 'ADMIN' | 'USER' | 'PREMIUM_USER'
 
 import { authOptions } from "./auth.config"
 import { prisma } from "./lib/db";
