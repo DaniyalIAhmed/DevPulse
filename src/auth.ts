@@ -33,8 +33,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                         image: user.image,
 
                         accounts: {
-                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                            // @ts-expect-error
                             create: {
                                 type: account.type,
                                 provider: account.provider,
@@ -45,7 +43,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                                 tokenType: account.token_type,
                                 scope: account.scope,
                                 idToken: account.id_token,
-                                sessionState: account.session_state,
+                                sessionState: account.session_state as string,
                             },
                         },
                     },
@@ -77,9 +75,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                             tokenType: account.token_type,
                             scope: account.scope,
                             idToken: account.id_token,
-                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                            // @ts-expect-error
-                            sessionState: account.session_state,
+                            sessionState: account.session_state as string,
                         },
                     });
                 }
