@@ -1,30 +1,20 @@
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-
-// Define UserRole locally to match Prisma schema
-type UserRole = 'ADMIN' | 'USER' | 'PREMIUM_USER'
-
 import { authOptions } from "./auth.config"
 import { prisma } from "./lib/db";
 import { getAccountByUserId, getUserById } from "@/features/auth/actions";
 
-
-
+type UserRole = 'ADMIN' | 'USER' | 'PREMIUM_USER'
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
     callbacks: {
-        /**
-         * Handle user creation and account linking after a successful sign-in
-         */
         async signIn({ user, account }) {
             if (!user || !account) return false;
 
-            // Check if the user already exists
             const existingUser = await prisma.user.findUnique({
                 where: { email: user.email! },
             });
 
-            // If user does not exist, create a new one
             if (!existingUser) {
                 const newUser = await prisma.user.create({
                     data: {

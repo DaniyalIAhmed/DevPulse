@@ -218,14 +218,52 @@ const WebContainerPreview = ({ templateData, isDataLoading, error, instance, for
         );
     }
     if (error || setupError) {
+        // Check if this is a WebContainer not supported error
+        const isWebContainerUnsupported = (error || setupError)?.includes('not supported') || 
+                                         (error || setupError)?.includes('Connection closed');
+        
         return (
             <div className="h-full flex items-center justify-center">
-                <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-6 rounded-lg max-w-md">
+                <div className={`p-6 rounded-lg max-w-md ${
+                    isWebContainerUnsupported 
+                        ? 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400'
+                        : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
+                }`}>
                     <div className="flex items-center gap-2 mb-3">
                         <XCircle className="h-5 w-5" />
-                        <h3 className="font-semibold">Error</h3>
+                        <h3 className="font-semibold">
+                            {isWebContainerUnsupported ? 'WebContainer Not Available' : 'Error'}
+                        </h3>
                     </div>
-                    <p className="text-sm">{error || setupError}</p>
+                    <p className="text-sm mb-3">
+                        {isWebContainerUnsupported 
+                            ? 'WebContainer is not supported in this environment. This feature works in local development but not in production deployments like Vercel.'
+                            : (error || setupError)
+                        }
+                    </p>
+                    {isWebContainerUnsupported && (
+                        <div className="space-y-2">
+                            <div className="text-xs bg-yellow-100 dark:bg-yellow-800/20 p-2 rounded">
+                                <strong>Alternative:</strong> Download the project template and run it locally for the full development experience.
+                            </div>
+                            <button 
+                                onClick={() => {
+                                    // Create a simple download of the template data
+                                    const templateJson = JSON.stringify(templateData, null, 2);
+                                    const blob = new Blob([templateJson], { type: 'application/json' });
+                                    const url = URL.createObjectURL(blob);
+                                    const a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = 'template-structure.json';
+                                    a.click();
+                                    URL.revokeObjectURL(url);
+                                }}
+                                className="w-full mt-2 px-3 py-1 text-xs bg-yellow-600 hover:bg-yellow-700 text-white rounded"
+                            >
+                                Download Template Structure
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         );

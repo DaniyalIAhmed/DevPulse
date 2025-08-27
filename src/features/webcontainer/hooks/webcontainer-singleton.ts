@@ -35,6 +35,16 @@ class WebContainerSingleton {
 
   private static async bootWebContainer(): Promise<WebContainer> {
     try {
+      // Check if we're in a production environment where WebContainer won't work
+      if (typeof window === 'undefined') {
+        throw new Error('WebContainer is not supported in server-side environments');
+      }
+      
+      // Check if we're on Vercel or similar platforms
+      if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+        console.warn('WebContainer may not work properly in production environment');
+      }
+      
       return await WebContainer.boot();
     } catch (error) {
       console.error('Failed to boot WebContainer:', error);
