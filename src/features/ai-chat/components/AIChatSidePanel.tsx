@@ -409,7 +409,7 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({
 
   const detectFileType = (
     fileName: string,
-    content: string
+    _content: string
   ): FileAttachment["type"] => {
     // Only allow code files
     const ext = fileName.split(".").pop()?.toLowerCase();
@@ -1147,7 +1147,7 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({
                             code: ({
                               children,
                               className,
-                              ...props
+                              ..._props
                             }) => (
                               <EnhancedCodeBlock
                                 className={className}

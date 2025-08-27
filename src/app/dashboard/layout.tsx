@@ -2,6 +2,27 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { getPlaygrounds } from "@/features/dashboard/actions";
 import DashboardSidebar from "@/features/dashboard/components/DashboardSidebar";
 
+type PlaygroundWithRelations = {
+    id: string;
+    title: string | null;
+    description: string | null;
+    template: string;
+    createdAt: Date;
+    updatedAt: Date;
+    userId: string;
+    user: {
+        id: string;
+        name: string | null;
+        email: string;
+        image: string | null;
+        role: string;
+        password: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+    };
+    starMark: { isMarked: boolean }[];
+};
+
 export default async function DashboardLayout({children}: {children: React.ReactNode}) {
     const playgrounds = await getPlaygrounds();
     const technologyIconMap: Record<string, string>={
@@ -12,7 +33,7 @@ export default async function DashboardLayout({children}: {children: React.React
         HONO: "FlameIcon",
         ANGULAR: "Terminal",
     }
-    const formattedPlaygrounds = playgrounds?.map((playground)=>{
+    const formattedPlaygrounds = playgrounds?.map((playground: PlaygroundWithRelations)=>{
         return {
             id: playground.id,
             name: playground.title || "",

@@ -121,7 +121,7 @@ export const PlaygroundEditor = ({
             ],
           }
         },
-        freeInlineCompletions: (completions: any) => {
+        freeInlineCompletions: (_completions: any) => {
           console.log("freeInlineCompletions called")
         },
       }

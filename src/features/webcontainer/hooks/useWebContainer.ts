@@ -1,4 +1,4 @@
-import { TemplateFolder } from '@/features/playgrounds/lib/path-to-json';
+
 import { useState, useEffect, useCallback } from 'react';
 import { WebContainer } from '@webcontainer/api';
 import WebContainerSingleton from './webcontainer-singleton';

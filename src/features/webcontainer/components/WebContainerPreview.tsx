@@ -19,7 +19,7 @@ interface WebContainerPreviewProps {
 
 const WebContainerPreview = ({ templateData, isDataLoading, error, instance, forceResetup }: WebContainerPreviewProps) => {
     const [previewUrl, setPreviewUrl] = useState<string>("");
-    const [loading, setIsLoading] = useState({
+    const [_loading, setIsLoading] = useState({
         transforming: false,
         mounting: false,
         installing: false,
